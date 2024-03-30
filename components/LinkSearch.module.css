@@ -1,0 +1,45 @@
+.linkSearchContainer {
+  display: flex;
+  align-items: center;
+  background-color: rgb(245, 245, 245);
+  width: min(340px, 100%);
+  padding: 0 32px;
+  border-radius: 16px;
+  margin: 0 auto;
+  height: 54px;
+  position: relative;
+}
+.linkSearch {
+  background-color: rgb(245, 245, 245);
+  border: none;
+  padding: 0 0 0 16px;
+  flex-grow: 1;
+}
+
+.linkSearch:focus {
+  outline: none;
+}
+
+.searchButton {
+  border: none;
+  background-color: none;
+}
+
+.closeButton {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background-color: none;
+}
+
+@media (min-width: 768px) {
+  .linkSearchContainer {
+    width: 700px;
+  }
+}
+
+@media (min-width: 1124px) {
+  .linkSearchContainer {
+    width: 1060px;
+  }
+}

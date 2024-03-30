@@ -1,0 +1,31 @@
+.addLinkInputForm {
+  display: flex;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 32px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  border: 1px solid #6d6afe;
+  background-color: white;
+  height: 70px;
+  z-index: 999;
+}
+.linkImage {
+  display: block;
+  margin: 15px;
+}
+.addLinkInput {
+  display: block;
+  flex-grow: 1;
+  border: none;
+  padding: 10px 0;
+}
+.addLinkInput:focus {
+  outline: none;
+}
+.addButton {
+  width: 120px;
+  height: 60%;
+  margin: 0 15px;
+}
