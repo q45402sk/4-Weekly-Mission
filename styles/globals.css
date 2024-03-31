@@ -120,6 +120,9 @@ nav {
 .link-search-card-list {
   margin: 32px;
 }
+.home {
+  /* 인풋 커스터마이징 */
+}
 @media (min-width: 768px) {
   nav {
     width: min(100%, 783.49px);

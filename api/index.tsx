@@ -119,3 +119,36 @@ export async function GetAllLinks() {
 //"image_source":"https://jasonwatmore.com/_content/images/jason.jpg","folder_id":null}]}
 
 //즐겨찾기
+
+export async function PostEmail(body: string) {
+  const response = await fetch(`${BASEURL}check-email`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email: body }),
+  });
+  return response;
+}
+
+export async function PostUserInfoSignUp(body: any) {
+  const response = await fetch(`${BASEURL}sign-up`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return response;
+}
+
+export async function PostUserInfoSignIn(body: any) {
+  const response = await fetch(`${BASEURL}sign-in`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return response;
+}

@@ -4,9 +4,15 @@ import { useEffect, useState } from 'react';
 import { GetProfile } from '../api';
 import Info from './Info.js';
 import Image from 'next/image';
+import styles from './navbar.module.css';
+import { useRouter } from 'next/router';
 
 function Navbar() {
   const [myProfile, setMyProfile] = useState<Info>({} as Info);
+  const router = useRouter();
+  const handleLogoClick = () => {
+    router.push('/');
+  };
 
   useEffect(() => {
     const GetMyProfile = async () => {
@@ -23,7 +29,9 @@ function Navbar() {
   return (
     <header>
       <nav>
-        <Image width={133} height={24} src={logo} alt="logo" />
+        <button className={styles.logoButton} onClick={handleLogoClick}>
+          <Image width={133} height={24} src={logo} alt="logo" />
+        </button>
         <Profile info={myProfile} />
       </nav>
     </header>

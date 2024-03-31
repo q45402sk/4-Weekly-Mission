@@ -1,0 +1,29 @@
+.inputContainer {
+  width: 350px;
+  height: 60px;
+  padding: 0 15px;
+  border-radius: 8px;
+  border: 1px solid #ccd5e3;
+  display: flex;
+}
+.inputContainer:focus-within {
+  outline: 1px solid #6d6afe;
+}
+.inputContainer.red {
+  outline: 1px solid #ff5b56;
+}
+.input {
+  border: none;
+  padding: 18px 15px;
+  flex-grow: 1;
+}
+.input:focus {
+  outline: none;
+}
+.message {
+  color: #ff5b56;
+}
+.eyeButton {
+  border: none;
+  background: none;
+}
