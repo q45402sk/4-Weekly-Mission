@@ -17,7 +17,7 @@ function Folder() {
   let AddLinkElement: HTMLDivElement;
   let footerElement: HTMLDivElement;
 
-  function handleIntersect(entries: any, observe: any) {
+  const handleIntersect = (entries: any, observe: any) => {
     entries.forEach((entry: any) => {
       if (entry.target === AddLinkElement) {
         if (entry.isIntersecting === false) {
@@ -34,7 +34,7 @@ function Folder() {
         }
       }
     });
-  }
+  };
 
   function createObserver() {
     let observer;

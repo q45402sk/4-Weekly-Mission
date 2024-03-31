@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import Info from './Info';
 
-function Profile({ info }: { info: Info }) {
+interface ProfileInfo {
+  info: Info;
+}
+
+function Profile({ info }: ProfileInfo) {
   if (Object.keys(info).length === 0) {
     return <button className="btn cta">로그인</button>;
   }

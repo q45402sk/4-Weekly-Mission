@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { GetFolder } from '../../api';
+import Image from 'next/image';
 
 function Favorites() {
   const [folderName, setFolderName] = useState<string>('');
@@ -25,7 +26,12 @@ function Favorites() {
   }, []);
   return (
     <div className="favorites flex flex-col justify-between items-center">
-      <img width={60} src={owner.profileImageSource} alt="profileImage" />
+      <Image
+        width={60}
+        height={60}
+        src={owner.profileImageSource}
+        alt="profileImage"
+      />
       <p className="avatar-id">{owner.name}</p>
       <h1>{folderName}</h1>
     </div>

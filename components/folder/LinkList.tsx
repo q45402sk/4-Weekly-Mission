@@ -32,20 +32,20 @@ function LinkListItem({
     setKebabOn(isIn);
   };
 
-  function handleAddModalOn() {
+  const handleAddModalOn = () => {
     setAddModalOn(true);
-  }
-  function handleAddModalOff() {
+  };
+  const handleAddModalOff = () => {
     setAddModalOn(false);
-  }
-  function handleDeleteModalOn() {
+  };
+  const handleDeleteModalOn = () => {
     setDeleteModalOn(true);
-  }
-  function handleDeleteModalOff() {
+  };
+  const handleDeleteModalOff = () => {
     setDeleteModalOn(false);
-  }
+  };
 
-  function kebabMenuBlur(e: FocusEvent<HTMLButtonElement>) {
+  const kebabMenuBlur = (e: FocusEvent<HTMLButtonElement>) => {
     const kebabMenuButtons = document.querySelectorAll(`${styles.kebabMenu}`);
 
     if (
@@ -54,7 +54,7 @@ function LinkListItem({
     ) {
       handleKebab(e, false);
     }
-  }
+  };
   return (
     <>
       <a

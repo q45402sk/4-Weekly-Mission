@@ -5,12 +5,12 @@ import Image from 'next/image';
 
 function RenameButton() {
   const [modalOn, setModalOn] = useState(false);
-  function handleModalOn() {
+  const handleModalOn = () => {
     setModalOn(true);
-  }
-  function handleModalOff() {
+  };
+  const handleModalOff = () => {
     setModalOn(false);
-  }
+  };
   return (
     <>
       <button onClick={handleModalOn} className="share-rename-delete-button">

@@ -6,20 +6,20 @@ import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
 
 function LinkSearch({ setKeywords }: { setKeywords: any }) {
   const [value, setValue] = useState('');
-  function handleSearch(e: FormEvent<HTMLFormElement>) {
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const target = e.target as HTMLFormElement;
     const targetInput = target.children[1] as HTMLInputElement;
     setKeywords(targetInput.value);
-  }
-  function handleCancelButtonClick(e: MouseEvent) {
+  };
+  const handleCancelButtonClick = (e: MouseEvent) => {
     e.preventDefault();
     setKeywords('');
     setValue('');
-  }
-  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+  };
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  }
+  };
   return (
     <form onSubmit={handleSearch} className={styles.linkSearchContainer}>
       <button className={styles.searchButton}>

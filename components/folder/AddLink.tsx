@@ -21,9 +21,9 @@ function AddLink() {
       console.log(err);
     }
   }, []);
-  function handleModalOff() {
+  const handleModalOff = () => {
     setModalOn(false);
-  }
+  };
 
   return (
     <>
