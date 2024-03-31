@@ -48,7 +48,6 @@ export default function Home() {
         <Input
           type="text"
           validateType="email"
-          isVisibleToggle={true}
           isValidationCheck={true}
           setIsValidateValue={setIsValidateValue}
           submittedValue={submittedValue}
