@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { GetProfile } from '../api';
 import Info from './Info.js';
 import Image from 'next/image';
-import styles from './navbar.module.css';
+import styles from './Navbar.module.css';
 import { useRouter } from 'next/router';
 
 function Navbar() {
@@ -30,7 +30,13 @@ function Navbar() {
     <header>
       <nav>
         <button className={styles.logoButton} onClick={handleLogoClick}>
-          <Image width={133} height={24} src={logo} alt="logo" />
+          <Image
+            width={133}
+            height={24}
+            src={logo}
+            alt="logo"
+            priority={true}
+          />
         </button>
         <Profile info={myProfile} />
       </nav>

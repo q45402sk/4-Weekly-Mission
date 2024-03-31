@@ -1,6 +1,7 @@
 import DeleteButton from './DeleteButton';
 import RenameButton from './RenameButton';
 import ShareButton from './ShareButton';
+import styles from './FolderLinkList.module.css';
 
 function ShareRenameDelete({
   folderName,
@@ -10,7 +11,7 @@ function ShareRenameDelete({
   folderId: number;
 }) {
   return (
-    <div className="share-rename-delete">
+    <div className={styles.shareRenameDelete}>
       <ShareButton folderName={folderName} folderId={folderId} />
       <RenameButton />
       <DeleteButton folderName={folderName} />

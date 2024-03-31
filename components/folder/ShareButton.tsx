@@ -2,6 +2,7 @@ import { useState } from 'react';
 import share from '@/public/images/share.png';
 import ShareModal from '../modals/ShareModal';
 import Image from 'next/image';
+import styles from './FolderLinkList.module.css';
 
 function ShareButton({
   folderName,
@@ -19,7 +20,10 @@ function ShareButton({
   };
   return (
     <>
-      <button onClick={handleModalOn} className="share-rename-delete-button">
+      <button
+        onClick={handleModalOn}
+        className={styles.shareRenameDeleteButton}
+      >
         <Image width={18} height={18} src={share} alt="share" />
         공유
       </button>

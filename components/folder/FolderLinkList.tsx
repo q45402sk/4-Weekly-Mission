@@ -58,7 +58,7 @@ function FolderLinkList({ keywords }: { keywords: string }) {
         className={
           //prevId값과 폴더 버튼의 Id값이 일치하면(해당 폴더버튼이 이전 폴더 버튼이 되었다면) 폴더버튼의 배경색을 바꾼다
           prevId === folderData.id
-            ? styles.folderButtonColor
+            ? `${styles.folderButton} ${styles.color}`
             : styles.folderButton
         }
         onClick={DataNameClick}

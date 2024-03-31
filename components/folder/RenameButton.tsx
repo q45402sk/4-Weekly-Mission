@@ -2,6 +2,7 @@ import { useState } from 'react';
 import rename from '@/public/images/pen.png';
 import EditModal from '../modals/EditModal';
 import Image from 'next/image';
+import styles from './FolderLinkList.module.css';
 
 function RenameButton() {
   const [modalOn, setModalOn] = useState(false);
@@ -13,7 +14,10 @@ function RenameButton() {
   };
   return (
     <>
-      <button onClick={handleModalOn} className="share-rename-delete-button">
+      <button
+        onClick={handleModalOn}
+        className={styles.shareRenameDeleteButton}
+      >
         <Image width={18} height={18} src={rename} alt="rename" />
         이름 변경
       </button>

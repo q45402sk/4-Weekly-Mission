@@ -6,10 +6,9 @@ import libraryImg from '@/public/images/library.png';
 import styled from 'styled-components';
 import Image from 'next/image';
 // kakao 기능 동작을 위해 넣어준다.
-// const { Kakao } = window;
 
 const handleShareKakao = (shareLink: string) => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== undefined) {
     const { Kakao } = window;
     Kakao.Share.sendDefault({
       objectType: 'feed',
@@ -55,16 +54,14 @@ const SNSImg = styled.button`
 `;
 
 export default function ShareKakao({ folderId }: { folderId: number }) {
-  const { Kakao } = window;
   // 배포한 자신의 사이트
   const realUrl = '';
   // 로컬 주소 (localhost 3000 같은거)
   const host = window.location.host;
   let shareLink = `${host}/shared?user=1&folder=${folderId}`;
   // 재랜더링시에 실행되게 해준다.
-
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== undefined) {
       const { Kakao } = window;
       // init 해주기 전에 clean up 을 해준다.
       Kakao.cleanup();
