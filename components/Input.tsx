@@ -21,9 +21,11 @@ type InputProps = {
   submittedValue: { email: string; password: string };
   setSubmittedValue: any;
   purpose?: string;
-  isLoginSucces?: boolean;
+  isLoginSuccess?: boolean;
   width?: number;
   height?: number;
+  message?: { email: string; password: string; passwordCheck: string };
+  setMessage?: any;
   [key: string]: any;
 };
 
@@ -40,12 +42,13 @@ function Input({
   purpose,
   width,
   height,
+  message,
+  setMessage,
   ...rest
 }: InputProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [value, setValue] = useState('');
   const [inputType, setInputType] = useState(type);
-  const [message, setMessage] = useState('');
 
   const handleBlur = async (e: FocusEvent<HTMLInputElement>) => {
     if (!isValidationCheck) return;
@@ -54,18 +57,27 @@ function Input({
     switch (validateType) {
       case VALIDATE_TYPE.email:
         if (value.trim() === '') {
-          setMessage('이메일을 입력해 주세요');
+          setMessage((prev: any) => ({
+            ...prev,
+            email: '이메일을 입력해 주세요',
+          }));
           return;
         }
         if (!validateEmail(value)) {
-          setMessage('유효한 이메일을 입력해 주세요');
+          setMessage((prev: any) => ({
+            ...prev,
+            email: '유효한 이메일을 입력해 주세요',
+          }));
           return;
         }
         if (purpose === 'signup') {
           try {
             const response = await PostEmail(value);
             if (!response.ok) {
-              setMessage('이미 사용 중인 이메일입니다.');
+              setMessage((prev: any) => ({
+                ...prev,
+                email: '이미 사용 중인 이메일입니다.',
+              }));
               return;
             }
           } catch (err) {
@@ -73,48 +85,67 @@ function Input({
           }
         }
         setSubmittedValue((prev: any) => ({ ...prev, email: value }));
-        if (purpose === 'signin') {
-          if (!isLoginSuccess) {
-            setMessage('이메일을 확인해 주세요');
-          }
-        }
-        setMessage('');
+
+        setMessage((prev: any) => ({
+          ...prev,
+          email: '',
+        }));
         setIsValidateValue((prev: any) => ({ ...prev, email: true }));
+
         break;
       case VALIDATE_TYPE.password:
         if (value.trim() === '') {
-          setMessage('비밀번호를 입력해 주세요');
+          setMessage((prev: any) => ({
+            ...prev,
+            password: '비밀번호를 입력해 주세요',
+          }));
           return;
         }
         if (!validatePassword(value)) {
-          setMessage('유효한 비밀번호를 입력해 주세요');
+          setMessage((prev: any) => ({
+            ...prev,
+            password: '유효한 비밀번호를 입력해 주세요',
+          }));
           return;
         }
         setSubmittedValue((prev: any) => ({ ...prev, password: value }));
-        if (purpose === 'signin') {
-          if (!isLoginSuccess) {
-            setMessage('비밀번호를 확인해 주세요');
-          }
-        }
-        setMessage('');
+
+        setMessage((prev: any) => ({
+          ...prev,
+          password: '',
+        }));
         setIsValidateValue((prev: any) => ({ ...prev, password: true }));
+
         break;
       case VALIDATE_TYPE.passwordCheck:
         if (value.trim() === '') {
-          setMessage('비밀번호를 입력해 주세요');
+          setMessage((prev: any) => ({
+            ...prev,
+            passwordCheck: '비밀번호를 입력해 주세요',
+          }));
           return;
         }
         if (!validatePassword(value)) {
-          setMessage('유효한 비밀번호를 입력해 주세요');
+          setMessage((prev: any) => ({
+            ...prev,
+            passwordCheck: '유효한 비밀번호를 입력해 주세요',
+          }));
           return;
         }
 
         if (submittedValue.password !== value) {
-          setMessage('비밀번호가 일치하지 않습니다.');
+          setMessage((prev: any) => ({
+            ...prev,
+            passwordCheck: '비밀번호가 일치하지 않습니다.',
+          }));
           return;
         }
-        setMessage('');
+        setMessage((prev: any) => ({
+          ...prev,
+          passwordCheck: '',
+        }));
         setIsValidateValue((prev: any) => ({ ...prev, passwordCheck: true }));
+
         break;
       default:
         return;
@@ -141,7 +172,20 @@ function Input({
     <div>
       <div
         className={`${styles.inputContainer} ${
-          message !== '' ? styles.red : ''
+          message !== undefined &&
+          (validateType === 'email'
+            ? message.email !== ''
+              ? styles.red
+              : ''
+            : validateType === 'password'
+              ? message.password !== ''
+                ? styles.red
+                : ''
+              : validateType === 'passwordCheck'
+                ? message.passwordCheck !== ''
+                  ? styles.red
+                  : ''
+                : '')
         }`}
         style={{ width: width, height: height }}
       >
@@ -167,7 +211,17 @@ function Input({
           </button>
         )}
       </div>
-      <p className={styles.message}>{message}</p>
+      {message !== undefined && (
+        <p className={styles.message}>
+          {validateType === 'email'
+            ? message.email
+            : validateType === 'password'
+              ? message.password
+              : validateType === 'passwordCheck'
+                ? message.passwordCheck
+                : ''}
+        </p>
+      )}
     </div>
   );
 }

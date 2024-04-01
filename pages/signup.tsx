@@ -1,6 +1,6 @@
 import { PostUserInfoSignUp } from '@/api';
 import Input from '@/components/Input';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useState } from 'react';
 
 export default function Home() {
@@ -13,9 +13,20 @@ export default function Home() {
     email: '',
     password: '',
   });
+  const [message, setMessage] = useState({
+    email: '',
+    password: '',
+    passwordCheck: '',
+  });
   const [isValidate, setIsValidate] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    const storedAccessToken = localStorage.getItem('accessToken');
+    if (storedAccessToken) {
+      router.push('./folder');
+    }
+  });
   useEffect(() => {
     if (
       isValidateValue.email === true &&
@@ -53,6 +64,8 @@ export default function Home() {
           submittedValue={submittedValue}
           setSubmittedValue={setSubmittedValue}
           purpose="signup"
+          message={message}
+          setMessage={setMessage}
           width={400}
           height={60}
         />
@@ -64,6 +77,8 @@ export default function Home() {
           setIsValidateValue={setIsValidateValue}
           submittedValue={submittedValue}
           setSubmittedValue={setSubmittedValue}
+          message={message}
+          setMessage={setMessage}
           width={400}
           height={60}
         />
@@ -75,6 +90,8 @@ export default function Home() {
           setIsValidateValue={setIsValidateValue}
           submittedValue={submittedValue}
           setSubmittedValue={setSubmittedValue}
+          message={message}
+          setMessage={setMessage}
           width={400}
           height={60}
         />
