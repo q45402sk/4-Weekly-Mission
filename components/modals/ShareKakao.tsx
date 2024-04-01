@@ -5,40 +5,42 @@ import kakaoImg from '@/public/images/Kakao.png';
 import libraryImg from '@/public/images/library.png';
 import styled from 'styled-components';
 import Image from 'next/image';
-// kakao 기능 동작을 위해 넣어준다.
 
 const handleShareKakao = (shareLink: string) => {
   if (typeof window !== undefined) {
     const { Kakao } = window;
-    Kakao.Share.sendDefault({
-      objectType: 'feed',
-      content: {
-        title: 'Linkbrary',
-        description: '세상의 모든 정보를 쉽게 저장하고 관리해 보세요',
-        imageUrl: libraryImg,
-        link: {
-          // mobileWebUrl: "https://developers.kakao.com",
-          webUrl: shareLink,
-        },
-      },
-
-      buttons: [
-        {
-          title: '웹으로 이동',
+    if (Kakao) {
+      Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: 'Linkbrary',
+          description: '세상의 모든 정보를 쉽게 저장하고 관리해 보세요',
+          // imageUrl: libraryImg,
+          imageUrl: '',
           link: {
-            mobileWebUrl: 'https://developers.kakao.com',
+            // mobileWebUrl: "https://developers.kakao.com",
             webUrl: shareLink,
           },
         },
-        {
-          title: '앱으로 이동',
-          link: {
-            mobileWebUrl: '',
-            webUrl: '',
+
+        buttons: [
+          {
+            title: '웹으로 이동',
+            link: {
+              mobileWebUrl: 'https://developers.kakao.com',
+              webUrl: shareLink,
+            },
           },
-        },
-      ],
-    });
+          {
+            title: '앱으로 이동',
+            link: {
+              mobileWebUrl: '',
+              webUrl: '',
+            },
+          },
+        ],
+      });
+    }
   }
 };
 const SNSImg = styled.button`
@@ -63,12 +65,14 @@ export default function ShareKakao({ folderId }: { folderId: number }) {
   useEffect(() => {
     if (typeof window !== undefined) {
       const { Kakao } = window;
-      // init 해주기 전에 clean up 을 해준다.
-      Kakao.cleanup();
-      // 자신의 js 키를 넣어준다.
-      Kakao.init(process.env.REACT_APP_KAKAO_INIT_KEY);
-      // 잘 적용되면 true 를 뱉는다.
-      // console.log(Kakao.isInitialized());
+      if (Kakao) {
+        // init 해주기 전에 clean up 을 해준다.
+        Kakao.cleanup();
+        // 자신의 js 키를 넣어준다.
+        Kakao.init(process.env.NEXT_PUBLIC_KAKAO_INIT_KEY);
+        // 잘 적용되면 true 를 뱉는다.
+        // console.log(Kakao.isInitialized());
+      }
     }
   }, []);
 
