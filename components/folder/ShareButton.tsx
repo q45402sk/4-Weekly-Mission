@@ -1,0 +1,41 @@
+import { useState } from 'react';
+import share from '@/public/images/share.png';
+import ShareModal from '../modals/ShareModal';
+import Image from 'next/image';
+import styles from './FolderLinkList.module.css';
+
+function ShareButton({
+  folderName,
+  folderId,
+}: {
+  folderName: string;
+  folderId: number;
+}) {
+  const [modalOn, setModalOn] = useState(false);
+  const handleModalOn = () => {
+    setModalOn(true);
+  };
+  const handleModalOff = () => {
+    setModalOn(false);
+  };
+  return (
+    <>
+      <button
+        onClick={handleModalOn}
+        className={styles.shareRenameDeleteButton}
+      >
+        <Image width={18} height={18} src={share} alt="share" />
+        공유
+      </button>
+      {modalOn && (
+        <ShareModal
+          purpose={'폴더 공유'}
+          folderName={folderName}
+          folderId={folderId}
+          handleModalOff={handleModalOff}
+        />
+      )}
+    </>
+  );
+}
+export default ShareButton;
