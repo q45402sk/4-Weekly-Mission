@@ -18,11 +18,6 @@ import kakao from '@/public/images/signin-image/kakao.png';
 import google from '@/public/images/signin-image/google.png';
 
 export default function Home() {
-  const [isValidateValue, setIsValidateValue] = useState({
-    email: false,
-    password: false,
-    passwordCheck: true,
-  });
   const [submittedValue, setSubmittedValue] = useState({
     email: '',
     password: '',
@@ -32,7 +27,6 @@ export default function Home() {
     password: '',
     passwordCheck: '',
   });
-  const [isValidate, setIsValidate] = useState(false);
   const router = useRouter();
   const purpose: string = 'signin';
   const emailRef: RefObject<HTMLInputElement> = useRef(null);
@@ -48,16 +42,6 @@ export default function Home() {
     }
   });
 
-  useEffect(() => {
-    if (
-      isValidateValue.email === true &&
-      isValidateValue.password === true &&
-      isValidateValue.passwordCheck === true
-    ) {
-      setIsValidate(true);
-    }
-  }, [isValidateValue]);
-
   const VALIDATE_TYPE = {
     email: 'email',
     password: 'password',
@@ -65,7 +49,6 @@ export default function Home() {
   };
 
   const handleBlur = async (validateType: string) => {
-    console.log('c');
     switch (validateType) {
       case VALIDATE_TYPE.email:
         const emailValue = emailRef.current?.value;
@@ -76,7 +59,7 @@ export default function Home() {
             email: '이메일을 입력해 주세요.',
           }));
 
-          return;
+          return false;
         }
         if (!validateEmail(emailValue)) {
           setMessage((prev: any) => ({
@@ -95,7 +78,7 @@ export default function Home() {
                 email: '이미 사용 중인 이메일입니다.',
               }));
 
-              return;
+              return false;
             }
           } catch (err) {
             console.log(err);
@@ -108,9 +91,7 @@ export default function Home() {
           email: '',
         }));
 
-        setIsValidateValue((prev: any) => ({ ...prev, email: true }));
-
-        break;
+        return true;
       case VALIDATE_TYPE.password:
         const passwordValue = passwordRef.current?.value;
         if (passwordValue === undefined) return;
@@ -120,7 +101,7 @@ export default function Home() {
             password: '비밀번호를 입력해 주세요.',
           }));
 
-          return;
+          return false;
         }
         if (!validatePassword(passwordValue)) {
           setMessage((prev: any) => ({
@@ -128,7 +109,7 @@ export default function Home() {
             password: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
           }));
 
-          return;
+          return false;
         }
         setSubmittedValue((prev: any) => ({
           ...prev,
@@ -140,11 +121,7 @@ export default function Home() {
           password: '',
         }));
 
-        console.log('d');
-
-        setIsValidateValue((prev: any) => ({ ...prev, password: true }));
-
-        break;
+        return true;
       case VALIDATE_TYPE.passwordCheck:
         const passwordCheckValue = passwordCheckRef.current?.value;
         if (passwordCheckValue === undefined) return;
@@ -154,7 +131,7 @@ export default function Home() {
             passwordCheck: '비밀번호를 입력해 주세요.',
           }));
 
-          return;
+          return false;
         }
         if (!validatePassword(passwordCheckValue)) {
           setMessage((prev: any) => ({
@@ -162,7 +139,7 @@ export default function Home() {
             passwordCheck: '유효한 비밀번호를 입력해 주세요.',
           }));
 
-          return;
+          return false;
         }
 
         if (submittedValue.password !== passwordCheckValue) {
@@ -171,7 +148,7 @@ export default function Home() {
             passwordCheck: '비밀번호가 일치하지 않아요.',
           }));
 
-          return;
+          return false;
         }
 
         setMessage((prev: any) => ({
@@ -179,27 +156,19 @@ export default function Home() {
           passwordCheck: '',
         }));
 
-        setIsValidateValue((prev: any) => ({ ...prev, passwordCheck: true }));
-
-        break;
+        return true;
       default:
         return;
     }
-    console.log('After handleBlur:', isValidateValue);
   };
 
   const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(isValidateValue);
-    console.log('a');
-    await handleBlur('email');
-    console.log(isValidateValue);
-    await handleBlur('password');
-    console.log(isValidateValue);
-    await handleBlur('passwordCheck');
-    console.log('b');
 
-    if (!isValidate) return;
+    const isValidEmail = await handleBlur('email');
+    const isValidPassword = await handleBlur('password');
+
+    if (!isValidEmail || !isValidPassword) return;
 
     try {
       const response = await postUserInfoSignIn(submittedValue);
@@ -274,13 +243,20 @@ export default function Home() {
               className={styles.socialIcon}
               src={google}
               alt="googleIcon"
+              width={44}
+              height={44}
             />
           </Link>
           <Link href="https://www.kakaocorp.com/page/">
-            <Image className={styles.socialIcon} src={kakao} alt="kakaoIcon" />
+            <Image
+              className={styles.socialIcon}
+              src={kakao}
+              alt="kakaoIcon"
+              width={44}
+              height={44}
+            />
           </Link>
         </div>
-        {isValidate && <div>값들이 유효합니다.</div>}
       </div>
     </div>
   );

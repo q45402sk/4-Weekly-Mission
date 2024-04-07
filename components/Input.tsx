@@ -79,7 +79,6 @@ const Input = forwardRef(
       if (message !== undefined && message.email !== '') {
         red = true;
       } else {
-        console.log('a');
         red = false;
       }
     }
