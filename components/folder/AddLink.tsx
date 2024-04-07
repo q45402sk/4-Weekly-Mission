@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import link from '@/public/images/link.png';
 import AddModal from '../modals/AddModal';
 import styles from './AddLink.module.css';
-import { GetFolderList } from '../../api';
+import { getFolderList } from '../../api';
 import Image from 'next/image';
 
 function AddLink() {
@@ -11,7 +11,7 @@ function AddLink() {
 
   useEffect(() => {
     const GetMyFolderList = async () => {
-      const result = await GetFolderList();
+      const result = await getFolderList();
       const { data } = result;
       setFolderListData(data);
     };

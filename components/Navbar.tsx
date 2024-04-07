@@ -1,7 +1,7 @@
 import Profile from './Profile';
 import logo from '@/public/images/logo.png';
 import { useEffect, useState } from 'react';
-import { GetProfile } from '../api';
+import { getProfile } from '../api';
 import Info from './Info.js';
 import Image from 'next/image';
 import styles from './Navbar.module.css';
@@ -16,7 +16,7 @@ function Navbar() {
 
   useEffect(() => {
     const GetMyProfile = async () => {
-      const result = await GetProfile();
+      const result = await getProfile();
       setMyProfile(result);
     };
 

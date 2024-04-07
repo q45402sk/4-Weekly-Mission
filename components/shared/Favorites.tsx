@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GetFolder } from '../../api';
+import { getFolder } from '../../api';
 import Image from 'next/image';
 
 function Favorites() {
@@ -12,8 +12,7 @@ function Favorites() {
 
   useEffect(() => {
     const GetMyFolder = async () => {
-      const result = await GetFolder();
-      const { folder } = result;
+      const { folder } = await getFolder();
       const { id, name: folderName, owner, links } = folder;
       setFolderName(folderName);
       setOwner(owner);

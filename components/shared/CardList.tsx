@@ -2,7 +2,7 @@ import styles from './CardList.module.css';
 import card1 from '@/public/images/card1.png';
 import { formatDate, getDaysAgo } from '../../util/date-calculator';
 import { useEffect, useState } from 'react';
-import { GetFolder } from '../../api';
+import { getFolder } from '../../api';
 import Link from 'next/link';
 
 interface Item {
@@ -46,7 +46,7 @@ function CardList() {
     const GetMyFolder = async () => {
       const {
         folder: { links },
-      } = await GetFolder();
+      } = await getFolder();
       setLinks(links);
     };
     try {

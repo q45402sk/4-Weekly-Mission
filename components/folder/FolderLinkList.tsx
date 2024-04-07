@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { GetAllLinks, GetFolderList, GetLinks } from '../../api';
+import { getAllLinks, getFolderList, GetLinks } from '../../api';
 import styles from './FolderLinkList.module.css';
 import '@/components/shared/CardList.module.css';
 import addButton from '@/public/images/add.png';
@@ -21,12 +21,12 @@ function FolderLinkList({ keywords }: { keywords: string }) {
 
   useEffect(() => {
     const GetMyFolderList = async () => {
-      const result = await GetFolderList();
+      const result = await getFolderList();
       const { data } = result;
       setFolderListData(data);
     };
     const GetInitialLinks = async () => {
-      const result = await GetAllLinks();
+      const result = await getAllLinks();
       const { data } = result;
       setLinksData(data);
     };
@@ -51,7 +51,7 @@ function FolderLinkList({ keywords }: { keywords: string }) {
     folderData,
     prevId,
   }: NamedButtonProps) => {
-    const DataNameClick = () => onClick(folderData);
+    const dataNameClick = () => onClick(folderData);
 
     return (
       <button
@@ -61,7 +61,7 @@ function FolderLinkList({ keywords }: { keywords: string }) {
             ? `${styles.folderButton} ${styles.color}`
             : styles.folderButton
         }
-        onClick={DataNameClick}
+        onClick={dataNameClick}
       >
         {children}
       </button>
@@ -81,7 +81,7 @@ function FolderLinkList({ keywords }: { keywords: string }) {
     }
   };
   const handleAllButtonClick = async () => {
-    const result = await GetAllLinks();
+    const result = await getAllLinks();
     const { data } = result;
     setLinksData(data);
     setCurrentFolderName('전체');
