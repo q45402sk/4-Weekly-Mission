@@ -2,6 +2,7 @@ import { postEmail, postUserInfoSignIn } from '@/api';
 import Input from '@/components/Input';
 import { validateEmail, validatePassword } from '@/util/validation';
 import { useRouter } from 'next/router';
+import styles from './signin.module.css';
 import {
   FocusEvent,
   FormEvent,
@@ -10,6 +11,11 @@ import {
   useRef,
   useState,
 } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import logo from '@/public/images/signin-image/logo.png';
+import kakao from '@/public/images/signin-image/kakao.png';
+import google from '@/public/images/signin-image/google.png';
 
 export default function Home() {
   const [isValidateValue, setIsValidateValue] = useState({
@@ -67,7 +73,7 @@ export default function Home() {
         if (emailValue === '') {
           setMessage((prev: any) => ({
             ...prev,
-            email: '이메일을 입력해 주세요',
+            email: '이메일을 입력해 주세요.',
           }));
 
           return;
@@ -75,7 +81,7 @@ export default function Home() {
         if (!validateEmail(emailValue)) {
           setMessage((prev: any) => ({
             ...prev,
-            email: '유효한 이메일을 입력해 주세요',
+            email: '올바른 이메일 주소가 아닙니다.',
           }));
 
           return;
@@ -111,7 +117,7 @@ export default function Home() {
         if (passwordValue === '') {
           setMessage((prev: any) => ({
             ...prev,
-            password: '비밀번호를 입력해 주세요',
+            password: '비밀번호를 입력해 주세요.',
           }));
 
           return;
@@ -119,7 +125,7 @@ export default function Home() {
         if (!validatePassword(passwordValue)) {
           setMessage((prev: any) => ({
             ...prev,
-            password: '유효한 비밀번호를 입력해 주세요',
+            password: '비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요.',
           }));
 
           return;
@@ -145,7 +151,7 @@ export default function Home() {
         if (passwordCheckValue === '') {
           setMessage((prev: any) => ({
             ...prev,
-            passwordCheck: '비밀번호를 입력해 주세요',
+            passwordCheck: '비밀번호를 입력해 주세요.',
           }));
 
           return;
@@ -153,7 +159,7 @@ export default function Home() {
         if (!validatePassword(passwordCheckValue)) {
           setMessage((prev: any) => ({
             ...prev,
-            passwordCheck: '유효한 비밀번호를 입력해 주세요',
+            passwordCheck: '유효한 비밀번호를 입력해 주세요.',
           }));
 
           return;
@@ -162,7 +168,7 @@ export default function Home() {
         if (submittedValue.password !== passwordCheckValue) {
           setMessage((prev: any) => ({
             ...prev,
-            passwordCheck: '비밀번호가 일치하지 않습니다.',
+            passwordCheck: '비밀번호가 일치하지 않아요.',
           }));
 
           return;
@@ -215,37 +221,67 @@ export default function Home() {
   };
 
   return (
-    <>
-      <form onSubmit={handleFormSubmit}>
-        <Input
-          type="text"
-          validateType="email"
-          // setIsValidateValue={setIsValidateValue}
-          // submittedValue={submittedValue}
-          // setSubmittedValue={setSubmittedValue}
-          onBlur={() => handleBlur('email')}
-          width={400}
-          height={60}
-          message={message}
-          ref={emailRef}
-        />
-        <Input
-          type="text"
-          validateType="password"
-          isVisibleToggle={true}
-          // setIsValidateValue={setIsValidateValue}
-          // submittedValue={submittedValue}
-          // setSubmittedValue={setSubmittedValue}
-          onBlur={() => handleBlur('password')}
-          width={400}
-          height={60}
-          message={message}
-          ref={passwordRef}
-        />
-        <button type="submit">제출</button>
-      </form>
-
-      {isValidate && <div>값들이 유효합니다.</div>}
-    </>
+    <div className={styles.background}>
+      <div className={styles.container}>
+        <div className={styles.title}>
+          <Link href="/">
+            <Image
+              src={logo}
+              alt="logo"
+              className={styles.logo}
+              priority={true}
+            />
+          </Link>
+          <div className={styles.titleMessage}>
+            <p className={styles.p}>회원이 아니신가요? </p>
+            <Link href="/signup" className={styles.signupLink}>
+              회원 가입하기
+            </Link>
+          </div>
+        </div>
+        <form onSubmit={handleFormSubmit}>
+          <p className={styles.label}>이메일</p>
+          <Input
+            type="text"
+            validateType="email"
+            onBlur={() => handleBlur('email')}
+            width={400}
+            height={60}
+            message={message}
+            ref={emailRef}
+            placeholder="이메일을 입력해 주세요."
+          />
+          <p className={styles.label}>비밀번호</p>
+          <Input
+            type="text"
+            validateType="password"
+            isVisibleToggle={true}
+            onBlur={() => handleBlur('password')}
+            width={400}
+            height={60}
+            message={message}
+            ref={passwordRef}
+            placeholder="비밀번호를 입력해 주세요."
+          />
+          <button type="submit" className={`btn cta ${styles.button}`}>
+            로그인
+          </button>
+        </form>
+        <div className={styles.socialLoginContainer}>
+          <p className={styles.socialLogin}>소셜 로그인</p>
+          <Link href="https://www.google.com/">
+            <Image
+              className={styles.socialIcon}
+              src={google}
+              alt="googleIcon"
+            />
+          </Link>
+          <Link href="https://www.kakaocorp.com/page/">
+            <Image className={styles.socialIcon} src={kakao} alt="kakaoIcon" />
+          </Link>
+        </div>
+        {isValidate && <div>값들이 유효합니다.</div>}
+      </div>
+    </div>
   );
 }

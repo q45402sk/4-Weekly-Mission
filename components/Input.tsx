@@ -101,7 +101,7 @@ const Input = forwardRef(
     }
 
     return (
-      <div>
+      <>
         <div
           className={`${styles.inputContainer} ${red && styles.red}`}
           style={{ width: width, height: height }}
@@ -132,7 +132,7 @@ const Input = forwardRef(
         {message !== undefined && (
           <p className={styles.message}>{errorMessage}</p>
         )}
-      </div>
+      </>
     );
   },
 );
