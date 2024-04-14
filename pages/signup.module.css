@@ -1,0 +1,56 @@
+.background {
+  background-color: var(--Linkbrary-bg, #f0f6ff);
+  padding: 238px 0 253px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 30px;
+  gap: 16px;
+}
+
+.titleMessage {
+  display: flex;
+  gap: 8px;
+}
+
+.p {
+  font-weight: 300;
+}
+
+.signupLink {
+  font-weight: 200;
+}
+
+.label {
+  margin: 24px 0 12px;
+}
+
+.button {
+  width: 400px;
+  margin: 30px 0 32px;
+}
+
+.socialLoginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 24px;
+  background-color: #e7effb;
+  border: 1px solid #ccd5e3;
+  border-radius: 8px;
+  height: 66px;
+}
+
+.socialLogin {
+  flex-grow: 1;
+}

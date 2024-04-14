@@ -1,6 +1,6 @@
 const BASEURL = 'https://bootcamp-api.codeit.kr/api/';
 
-export async function GetProfile() {
+export async function getProfile() {
   const response = await fetch(`${BASEURL}users/1`);
   const result = await response.json();
   //"{\"id\":1,\"name\":\"코드잇\",\"email\":\"codeit@codeit.com\",\"profileImageSource\":\"https://codeit-front.s3.ap-northeast-2.amazonaws.com/images/default_profile.png\"}"
@@ -11,7 +11,7 @@ export async function GetProfile() {
   return result;
 }
 
-export async function GetFolder() {
+export async function getFolder() {
   const response = await fetch(`${BASEURL}sample/folder`);
   const result = await response.json();
   if (!response.ok) {
@@ -63,7 +63,7 @@ export async function GetFolder() {
 // "imageSource":"https://s.pstatic.net/static/www/mobile/edit/2016/0705/mobile_212852414260.png"}],
 // "count":9}}
 
-export async function GetFolderList() {
+export async function getFolderList() {
   const response = await fetch(`${BASEURL}users/1/folders`);
   const result = await response.json();
   if (!response.ok) {
@@ -94,7 +94,7 @@ export async function GetLinks(id: number) {
   return result;
 }
 
-export async function GetAllLinks() {
+export async function getAllLinks() {
   const response = await fetch(`${BASEURL}users/1/links`);
   const result = await response.json();
   if (!response.ok) {
@@ -120,7 +120,7 @@ export async function GetAllLinks() {
 
 //즐겨찾기
 
-export async function PostEmail(body: string) {
+export async function postEmail(body: string) {
   const response = await fetch(`${BASEURL}check-email`, {
     method: 'POST',
     headers: {
@@ -131,7 +131,7 @@ export async function PostEmail(body: string) {
   return response;
 }
 
-export async function PostUserInfoSignUp(body: any) {
+export async function postUserInfoSignUp(body: any) {
   const response = await fetch(`${BASEURL}sign-up`, {
     method: 'POST',
     headers: {
@@ -142,7 +142,7 @@ export async function PostUserInfoSignUp(body: any) {
   return response;
 }
 
-export async function PostUserInfoSignIn(body: any) {
+export async function postUserInfoSignIn(body: any) {
   const response = await fetch(`${BASEURL}sign-in`, {
     method: 'POST',
     headers: {
