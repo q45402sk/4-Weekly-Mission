@@ -77,7 +77,7 @@ function FolderLinkList({ keywords }: { keywords: string }) {
     setLinksData(data);
     setCurrentFolderName(folderData.name);
     setCurrentFolderId(folderData.id);
-    //만약 이전 버튼 상태일 때 현재 버튼이 클릭됐다면
+    //만약 이전 버튼 상태일 때 현재 버튼이 클릭됐다면..
     if (prevId !== folderData.id) {
       //현재 누른 버튼이 이전 버튼이 되고 버튼 배경색이 바뀐다
       setPrevId(folderData.id);
