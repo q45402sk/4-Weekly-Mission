@@ -9,6 +9,12 @@ const nextConfig = {
         port: '',
         // pathname: "/weekly_mission_next.js/**",
       },
+      {
+        protocol: 'https',
+        hostname: 'cloudflare-ipfs.com',
+        port: '',
+        // pathname: "/weekly_mission_next.js/**",
+      },
     ],
   },
 };

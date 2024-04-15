@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
-import { getAllLinks, getFolderList, GetLinks } from '../../api';
+import { getAllLinks, getFolderList, getLinks, getUser } from '../../api';
 import styles from './FolderLinkList.module.css';
 import '@/components/shared/CardList.module.css';
 import addButton from '@/public/images/add.png';
@@ -69,7 +69,10 @@ function FolderLinkList({ keywords }: { keywords: string }) {
   };
 
   const handleDataNameClick = async (folderData: FolderData) => {
-    const result = await GetLinks(folderData.id);
+    const userDataResult = await getUser();
+    const { data: userData } = userDataResult;
+    const { id: userId } = userData[0];
+    const result = await getLinks(folderData.id, userId);
     const { data } = result;
     setLinksData(data);
     setCurrentFolderName(folderData.name);

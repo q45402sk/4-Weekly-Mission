@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Info from '@/components/Info';
-import { getProfile } from '@/api';
+import { getProfile, getUser } from '@/api';
 import Profile from '@/components/Profile';
 export default function Home() {
   const [profileOn, setProfileOn] = useState(false);
@@ -19,7 +19,7 @@ export default function Home() {
   useEffect(() => {
     const storedAccessToken = localStorage.getItem('accessToken');
     const GetMyProfile = async () => {
-      const result = await getProfile();
+      const result = await getUser();
       setMyProfile(result);
     };
 

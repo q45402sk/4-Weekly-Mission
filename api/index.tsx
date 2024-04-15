@@ -1,7 +1,22 @@
 const BASEURL = 'https://bootcamp-api.codeit.kr/api/';
 
-export async function getProfile() {
-  const response = await fetch(`${BASEURL}users/1`);
+export async function getUser() {
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) {
+    return;
+  }
+  const response = await fetch(`${BASEURL}users`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  const result = await response.json();
+  if (!response.ok) {
+    throw new Error('사용자 정보를 불러오는데 실패했습니다');
+  }
+  return result;
+}
+
+export async function getProfile(userId: number) {
+  const response = await fetch(`${BASEURL}users/${userId}`);
   const result = await response.json();
   //"{\"id\":1,\"name\":\"코드잇\",\"email\":\"codeit@codeit.com\",\"profileImageSource\":\"https://codeit-front.s3.ap-northeast-2.amazonaws.com/images/default_profile.png\"}"
   //{"data":[{"id":1,"created_at":"2023-06-04T13:03:01+00:00","name":"코드잇","image_source":"https://codeit-images.codeit.com/badges/COMPLETE_100_LESSONS.png","email":"codeit@codeit.com","auth_id":"b9d4649a-8d92-4776-8f69-80abe2786721"}]}
@@ -11,8 +26,8 @@ export async function getProfile() {
   return result;
 }
 
-export async function getFolder() {
-  const response = await fetch(`${BASEURL}sample/folder`);
+export async function getFolder(folderId: number) {
+  const response = await fetch(`${BASEURL}folders/${folderId}`);
   const result = await response.json();
   if (!response.ok) {
     throw new Error('폴더 정보를 불러오는데 실패했습니다');
@@ -85,8 +100,10 @@ export async function getFolderList() {
 //"favorite":false,"link":{"count":0}},{"id":513,"created_at":"2024-01-18T15:55:27.603912+00:00",
 //"name":"string2","user_id":1,"favorite":false,"link":{"count":0}}]}
 
-export async function GetLinks(id: number) {
-  const response = await fetch(`${BASEURL}users/1/links?folderId=${id}`);
+export async function getLinks(id: number, userId: number) {
+  const response = await fetch(
+    `${BASEURL}users/${userId}/links?folderId=${id}`,
+  );
   const result = await response.json();
   if (!response.ok) {
     throw new Error('링크를 불러오는데 실패했습니다');

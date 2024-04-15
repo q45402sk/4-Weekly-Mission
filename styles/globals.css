@@ -124,6 +124,10 @@ nav {
   margin: 12px 0 20px;
 }
 
+.avatar-image {
+  border-radius: 9999px;
+}
+
 .link-search-card-list {
   margin: 32px;
 }

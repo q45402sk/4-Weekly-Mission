@@ -2,16 +2,19 @@ import styles from './CardList.module.css';
 import card1 from '@/public/images/card1.png';
 import { formatDate, getDaysAgo } from '../../util/date-calculator';
 import { useEffect, useState } from 'react';
-import { getFolder } from '../../api';
+import { getFolder, getLinks } from '../../api';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface Item {
   id: number;
-  createdAt: string;
+  created_at: string;
+  updated_at: string;
   url: string;
   title: string;
   description: string;
   imageSource: string;
+  folder_id: number;
 }
 
 function CardListItem({ item }: { item: Item }) {
@@ -31,30 +34,34 @@ function CardListItem({ item }: { item: Item }) {
       />
 
       <div className={styles.cardContent}>
-        <p>{getDaysAgo(item.createdAt)}</p>
+        <p>{getDaysAgo(item.created_at)}</p>
         <h2 className={styles.h2}>{item.title}</h2>
-        <p>{formatDate(item.createdAt)}</p>
+        <p>{formatDate(item.created_at)}</p>
       </div>
     </Link>
   );
 }
 
-function CardList() {
+function CardList({ folderId }: { folderId: number }) {
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
     const GetMyFolder = async () => {
-      const {
-        folder: { links },
-      } = await getFolder();
-      setLinks(links);
+      const { data } = await getFolder(folderId);
+      if (!data || data.length === 0) {
+        console.warn('폴더 데이터가 비어 있습니다.');
+        return;
+      }
+      const { id, name: folderName, user_id, favorite } = data[0];
+      const { data: linksData } = await getLinks(folderId, user_id);
+      setLinks(linksData);
     };
     try {
       GetMyFolder();
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [folderId]);
   return (
     <ul className={styles.ul}>
       {links.map((item: Item, i) => {

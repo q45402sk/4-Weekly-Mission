@@ -72,37 +72,37 @@ const Input = forwardRef(
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
     };
-    let red = false;
+    let warning = false;
     let errorMessage = '';
     if (validateType === 'email') {
       errorMessage = message ? message.email : '';
       if (message !== undefined && message.email !== '') {
-        red = true;
+        warning = true;
       } else {
-        red = false;
+        warning = false;
       }
     }
     if (validateType === 'password') {
       errorMessage = message ? message.password : '';
       if (message !== undefined && message.password !== '') {
-        red = true;
+        warning = true;
       } else {
-        red = false;
+        warning = false;
       }
     }
     if (validateType === 'passwordCheck') {
       errorMessage = message ? message.passwordCheck : '';
       if (message !== undefined && message.passwordCheck !== '') {
-        red = true;
+        warning = true;
       } else {
-        red = false;
+        warning = false;
       }
     }
 
     return (
       <>
         <div
-          className={`${styles.inputContainer} ${red && styles.red}`}
+          className={`${styles.inputContainer} ${warning && styles.warning}`}
           style={{ width: width, height: height }}
         >
           <input

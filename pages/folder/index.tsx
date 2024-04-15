@@ -1,10 +1,11 @@
-import AddLink from '../components/folder/AddLink';
-import LinkSearch from '../components/LinkSearch';
-import Navbar from '../components/Navbar';
-import styles from './Folder.module.css';
-import FolderLinkList from '../components/folder/FolderLinkList';
-import Footer from '../components/Footer';
+import AddLink from '../../components/folder/AddLink';
+import LinkSearch from '../../components/LinkSearch';
+import Navbar from '../../components/Navbar';
+import styles from '../Folder.module.css';
+import FolderLinkList from '../../components/folder/FolderLinkList';
+import Footer from '../../components/Footer';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
 function Folder() {
   const [Folderkeywords, setFolderKeywords] = useState('');
@@ -13,6 +14,14 @@ function Folder() {
   const [footerState, setFooterState] = useState(false);
   const footerRef = useRef<HTMLDivElement>(null);
   const addLinkRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+      router.push('/signin');
+    }
+  }, [router]);
 
   let AddLinkElement: HTMLDivElement;
   let footerElement: HTMLDivElement;

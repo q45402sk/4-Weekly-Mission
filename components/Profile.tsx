@@ -1,13 +1,22 @@
 import Image from 'next/image';
 import Info from './Info';
+import Link from 'next/link';
 
 interface ProfileInfo {
   info: Info;
 }
 
 function Profile({ info }: ProfileInfo) {
-  if (Object.keys(info).length === 0) {
-    return <button className="btn cta">로그인</button>;
+  if (
+    info === undefined ||
+    info.data === null ||
+    Object.keys(info).length === 0
+  ) {
+    return (
+      <Link href="/signin" className="cta btn">
+        로그인
+      </Link>
+    );
   }
 
   return (
